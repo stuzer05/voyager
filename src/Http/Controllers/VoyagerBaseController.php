@@ -70,7 +70,7 @@ class VoyagerBaseController extends Controller
         if (strlen($dataType->model_name) != 0) {
             $model = app($dataType->model_name);
 
-            $query = $model::select($dataType->name.'.*');
+            $query = $model;
 
             if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope'.ucfirst($dataType->scope))) {
                 $query->{$dataType->scope}();
