@@ -95,12 +95,12 @@ class VoyagerBaseController extends Controller
 
                 $searchField = $dataType->name.'.'.$search->key;
                 if ($row = $this->findRelationshipRow($dataType->rows->where('type', 'relationship'), $search->key)) {
-                    $query->whereIn(
+                    $query = $query->whereIn(
                         $searchField,
                         $row->details->model::where($row->details->label, $search_filter, $search_value)->pluck('id')->toArray()
                     );
                 } else {
-                    $query->where($searchField, $search_filter, $search_value);
+                    $query = $query->where($searchField, $search_filter, $search_value);
                 }
             }
 
@@ -108,7 +108,7 @@ class VoyagerBaseController extends Controller
             if ($orderBy && (in_array($orderBy, $dataType->fields()) || !empty($row))) {
                 $querySortOrder = (!empty($sortOrder)) ? $sortOrder : 'desc';
                 if (!empty($row)) {
-                    $query->select([
+                    $query = $query->select([
                         $dataType->name.'.*',
                         'joined.'.$row->details->label.' as '.$orderBy,
                     ])->leftJoin(
