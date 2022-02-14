@@ -76,3 +76,7 @@
         </ul>
     </div>
 </nav>
+
+@php
+session()->put('errors', []);
+@endphp
