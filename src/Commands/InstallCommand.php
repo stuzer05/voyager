@@ -117,7 +117,7 @@ class InstallCommand extends Command
         if (false === strpos($routes_contents, 'Voyager::routes()')) {
             $filesystem->append(
                 base_path('routes/web.php'),
-                "\n\nRoute::group(['prefix' => 'admin'], function () {\n    Voyager::routes();\n});\n"
+                PHP_EOL.PHP_EOL."Route::group(['prefix' => 'admin'], function () {".PHP_EOL."    Voyager::routes();".PHP_EOL."});".PHP_EOL
             );
         }
 
@@ -146,18 +146,15 @@ class InstallCommand extends Command
         require_once base_path('vendor/autoload.php');
 
         $this->info('Seeding data into the database');
-        $this->call('db:seed', ['--class' => 'VoyagerDatabaseSeeder']);
+        $this->call('db:seed', ['--class' => 'VoyagerDatabaseSeeder', '--force' => $this->option('force')]);
 
         if ($this->option('with-dummy')) {
             $this->info('Migrating dummy tables');
             $this->call('migrate');
 
             $this->info('Seeding dummy data');
-            $this->call('db:seed', ['--class' => 'VoyagerDummyDatabaseSeeder']);
+            $this->call('db:seed', ['--class' => 'VoyagerDummyDatabaseSeeder', '--force' => $this->option('force')]);
         }
-
-        $this->info('Setting up the hooks');
-        $this->call('hook:setup');
 
         $this->info('Adding the storage symlink to your public folder');
         $this->call('storage:link');
@@ -173,10 +170,9 @@ class InstallCommand extends Command
 
         $seeds->each(function ($file) use ($filesystem) {
             $path = database_path('seeders').'/'.$file->getFilename();
-
             $stub = str_replace(
-                "<?php\n\nuse",
-                "<?php\n\nnamespace Database\\Seeders;\n\nuse",
+                ["<?php\n\nuse", "<?php".PHP_EOL.PHP_EOL."use"],
+                "<?php".PHP_EOL.PHP_EOL."namespace Database\\Seeders;".PHP_EOL.PHP_EOL."use",
                 $filesystem->get($path)
             );
 
