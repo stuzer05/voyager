@@ -492,6 +492,9 @@ class VoyagerBaseController extends Controller
             // Single item delete, get ID from URL
             $ids[] = $id;
         }
+
+        $deletedModels = [];
+
         foreach ($ids as $id) {
             $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
 
@@ -499,6 +502,8 @@ class VoyagerBaseController extends Controller
             $this->authorize('delete', $data);
 
             $model = app($dataType->model_name);
+			$deletedModels[] = $data;
+
             if (!($model && in_array(SoftDeletes::class, class_uses_recursive($model)))) {
                 $this->cleanup($dataType, $data);
             }
@@ -518,7 +523,7 @@ class VoyagerBaseController extends Controller
             ];
 
         if ($res) {
-            event(new BreadDataDeleted($dataType, $data));
+            event(new BreadDataDeleted($dataType, $deletedModels));
         }
 
         return redirect()->route("voyager.{$dataType->slug}.index")->with($data);
