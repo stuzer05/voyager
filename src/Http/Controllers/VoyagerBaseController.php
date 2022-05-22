@@ -370,7 +370,7 @@ class VoyagerBaseController extends Controller
 		}
 
         try {
-			event(new BreadDataBeforeUpdated($dataType, $data, $request->all()));
+			event(new BreadDataBeforeUpdated($dataType, $data, collect($request->all())));
 		} catch (Exception $e) {
 			return $redirect->with([
 				'message'    => $e->getMessage(),
@@ -459,7 +459,7 @@ class VoyagerBaseController extends Controller
         $val = $this->validateBread($request->all(), $dataType->addRows)->validate();
 
 		try {
-			event(new BreadDataBeforeAdded($dataType, $request->all()));
+			event(new BreadDataBeforeAdded($dataType, collect($request->all())));
 		} catch (Exception $e) {
 			if (auth()->user()->can('browse', new $dataType->model_name()) && !config('voyager.settings.bread_save_redirect_back', false)) {
 				$redirect = redirect()->route("voyager.{$dataType->slug}.index");
