@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Database\Schema\SchemaManager;
+use TCG\Voyager\Events\BreadDataBeforeAdded;
+use TCG\Voyager\Events\BreadDataBeforeDeleted;
+use TCG\Voyager\Events\BreadDataBeforeUpdated;
 use TCG\Voyager\Events\BreadDataAdded;
 use TCG\Voyager\Events\BreadDataDeleted;
 use TCG\Voyager\Events\BreadDataRestored;
@@ -360,18 +363,27 @@ class VoyagerBaseController extends Controller
             });
         $original_data = clone($data);
 
+		if (auth()->user()->can('browse', app($dataType->model_name)) && !config('voyager.settings.bread_save_redirect_back', false)) {
+			$redirect = redirect()->route("voyager.{$dataType->slug}.index");
+		} else {
+			$redirect = redirect()->back();
+		}
+
+        try {
+			event(new BreadDataBeforeUpdated($dataType, $data, $request->all()));
+		} catch (Exception $e) {
+			return $redirect->with([
+				'message'    => $e->getMessage(),
+				'alert-type' => 'error',
+			]);
+		}
+
         $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
 
         // Delete Images
         $this->deleteBreadImages($original_data, $to_remove);
 
         event(new BreadDataUpdated($dataType, $data));
-
-        if (auth()->user()->can('browse', app($dataType->model_name))) {
-            $redirect = redirect()->route("voyager.{$dataType->slug}.index");
-        } else {
-            $redirect = redirect()->back();
-        }
 
         return $redirect->with([
             'message'    => __('voyager::generic.successfully_updated')." {$dataType->getTranslatedAttribute('display_name_singular')}",
@@ -445,16 +457,35 @@ class VoyagerBaseController extends Controller
 
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->addRows)->validate();
+
+		try {
+			event(new BreadDataBeforeAdded($dataType, $request->all()));
+		} catch (Exception $e) {
+			if (auth()->user()->can('browse', new $dataType->model_name()) && !config('voyager.settings.bread_save_redirect_back', false)) {
+				$redirect = redirect()->route("voyager.{$dataType->slug}.index");
+			} else {
+				$redirect = redirect()->back();
+			}
+
+			return $redirect->with([
+				'message'    => $e->getMessage(),
+				'alert-type' => 'error',
+			]);
+		}
+
         $data = $this->insertUpdateData($request, $slug, $dataType->addRows, new $dataType->model_name());
 
-        event(new BreadDataAdded($dataType, $data));
+
+		event(new BreadDataAdded($dataType, $data));
 
         if (!$request->has('_tagging')) {
-            if (auth()->user()->can('browse', $data)) {
-                $redirect = redirect()->route("voyager.{$dataType->slug}.index");
-            } else {
-                $redirect = redirect()->back();
-            }
+			if (auth()->user()->can('browse', new $dataType->model_name()) && !config('voyager.settings.bread_save_redirect_back', false)) {
+				$redirect = redirect()->route("voyager.{$dataType->slug}.index");
+			} else {
+				$redirect = redirect()->route("voyager.{$dataType->slug}.edit", [
+					'id' => $data->getKey(),
+				]);
+			}
 
             return $redirect->with([
                 'message'    => __('voyager::generic.successfully_added_new')." {$dataType->getTranslatedAttribute('display_name_singular')}",
@@ -493,13 +524,28 @@ class VoyagerBaseController extends Controller
             $ids[] = $id;
         }
 
-        $deletedModels = [];
+        $deletedModels = collect();
+
+		foreach ($ids as $id) {
+			$data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
+
+			// Check permission
+			$this->authorize('delete', $data);
+
+			try {
+				event(new BreadDataBeforeDeleted($dataType, $data));
+			} catch (Exception $e) {
+				$redirect = redirect()->route("voyager.{$dataType->slug}.index");
+
+				return $redirect->with([
+					'message'    => __('voyager::generic.error_deleting')." {$e->getMessage()}",
+					'alert-type' => 'error',
+				]);
+			}
+		}
 
         foreach ($ids as $id) {
             $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
-
-            // Check permission
-            $this->authorize('delete', $data);
 
             $model = app($dataType->model_name);
 			$deletedModels[] = $data;

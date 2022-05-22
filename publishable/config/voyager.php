@@ -216,6 +216,8 @@ return [
         // Enables Laravel cache method for
         // storing cache values between requests
         'cache' => false,
+
+		'bread_save_redirect_back' => false,
     ],
 
     // Activate compass when environment is NOT local
