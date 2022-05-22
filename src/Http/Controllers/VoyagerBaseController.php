@@ -50,6 +50,9 @@ class VoyagerBaseController extends Controller
 
         $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
 
+		$dataTypeModel = app($dataType->model_name);
+		$dataTypeTable = $dataTypeModel->table ?? $dataType->name;
+
         $searchNames = [];
         if ($dataType->server_side) {
             $searchNames = $dataType->browseRows->mapWithKeys(function ($row) {
@@ -66,7 +69,7 @@ class VoyagerBaseController extends Controller
         if (strlen($dataType->model_name) != 0) {
             $model = app($dataType->model_name);
 
-            $query = $model::select($dataType->name.'.*');
+            $query = $model::select($dataTypeTable.'.*');
 
             if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope'.ucfirst($dataType->scope))) {
                 $query->{$dataType->scope}();
@@ -89,7 +92,7 @@ class VoyagerBaseController extends Controller
                 $search_filter = ($search->filter == 'equals') ? '=' : 'LIKE';
                 $search_value = ($search->filter == 'equals') ? $search->value : '%'.$search->value.'%';
 
-                $searchField = $dataType->name.'.'.$search->key;
+                $searchField = $dataTypeTable.'.'.$search->key;
                 if ($row = $this->findSearchableRelationshipRow($dataType->rows->where('type', 'relationship'), $search->key)) {
                     $query->whereIn(
                         $searchField,
@@ -107,11 +110,11 @@ class VoyagerBaseController extends Controller
                 $querySortOrder = (!empty($sortOrder)) ? $sortOrder : 'desc';
                 if (!empty($row)) {
                     $query->select([
-                        $dataType->name.'.*',
+                        $dataTypeTable.'.*',
                         'joined.'.$row->details->label.' as '.$orderBy,
                     ])->leftJoin(
                         $row->details->table.' as joined',
-                        $dataType->name.'.'.$row->details->column,
+                        $dataTypeTable.'.'.$row->details->column,
                         'joined.'.$row->details->key
                     );
                 }
@@ -130,7 +133,7 @@ class VoyagerBaseController extends Controller
             $dataTypeContent = $this->resolveRelations($dataTypeContent, $dataType);
         } else {
             // If Model doesn't exist, get data from table name
-            $dataTypeContent = call_user_func([DB::table($dataType->name), $getter]);
+            $dataTypeContent = call_user_func([DB::table($dataTypeTable), $getter]);
             $model = false;
         }
 
