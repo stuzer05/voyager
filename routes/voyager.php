@@ -48,6 +48,7 @@ Route::group(['as' => 'voyager.'], function () {
                 Route::get($dataType->slug.'/relation', $breadController.'@relation')->name($dataType->slug.'.relation');
                 Route::post($dataType->slug.'/remove', $breadController.'@remove_media')->name($dataType->slug.'.media.remove');
 				Route::post($dataType->slug.'/remove_all', $breadController.'@remove_media_all')->name($dataType->slug.'.media.remove_all');
+				Route::post($dataType->slug.'/reorder_files', $breadController.'@reorder_files')->name($dataType->slug.'.media.reorder_files');
                 Route::resource($dataType->slug, $breadController, ['parameters' => [$dataType->slug => 'id']]);
             }
         } catch (\InvalidArgumentException $e) {

@@ -826,6 +826,24 @@ class VoyagerBaseController extends Controller
         }
     }
 
+	public function reorder_files(Request $request)
+	{
+		$slug = $this->getSlug($request);
+
+		$dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+
+		// Check permission
+		$this->authorize('edit', app($dataType->model_name));
+
+		$model = app($dataType->model_name);
+
+		$data = $model->withTrashed()->findOrFail($request->id);
+
+		$data->{$request->field} = @json_encode($request->file_names);
+
+		$data->save();
+	}
+
     /**
      * Remove translations, images and files related to a BREAD item.
      *

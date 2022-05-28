@@ -240,8 +240,6 @@
 
                         toastr.success(response.data.message);
 
-                        console.log(params)
-
                         const files = $(`button.remove-all-files[data-field-name="${params.field}"]`).parent().find('img')
                         for (const file of files) {
                             $(file).parent().fadeOut(300, function() { $(this).remove(); })
@@ -252,6 +250,22 @@
                 });
 
                 $('#confirm_delete_all_modal').modal('hide');
+            });
+
+            $('.multiple-images-sortable').sortable(p{
+                update: function(event, ui) {
+                    const id = $(event.target).attr('data-id');
+                    const field = $(event.target).attr('data-field-name');
+                    const fileNames = [...$(event.target).find('img')].map(e => $(e).attr('data-file-name'));
+
+                    const params = {
+                        id: id,
+                        field: field,
+                        file_names: fileNames,
+                    };
+
+                    $.post('{{ route('voyager.'.$dataType->slug.'.media.reorder_files') }}', params, function (response) {});
+                }
             });
         });
     </script>
