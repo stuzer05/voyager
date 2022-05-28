@@ -27,5 +27,5 @@ return [
     'updated_order'        => 'Rendi i menysë i përditësuar me sukses.',
     'url'                  => 'URL për artikullin e menysë',
     'usage_hint'           => 'Ju mund të nxjerrni një menu kudo në faqen tuaj duke '
-    .'telefonuar Mund të dalni  këtë menu diku në faqen tënde duke telefonuar',
+        .'telefonuar Mund të dalni  këtë menu diku në faqen tënde duke telefonuar',
 ];

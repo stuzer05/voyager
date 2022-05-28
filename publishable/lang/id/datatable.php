@@ -19,7 +19,7 @@ return [
         'sNext'     => 'Selanjutnya',
         'sPrevious' => 'Sebelumnya',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': aktivasi untuk mengurutkan dari kecil ke besar',
         'sSortDescending' => ': aktivasi untuk mengurutkan dari besar ke kecil',
     ],

@@ -20,6 +20,7 @@ return [
     'files_more'             => 'And :count more',
     'file_does_not_exist'    => 'File does not exist',
     'file_removed'           => 'File removed',
+    'files_removed'          => 'Files removed',
     'files_selected'         => 'files/folder selected',
     'folder_exists_already'  => 'Sorry that folder already exists, please delete that folder if you wish to re-create it',
     'image_does_not_exist'   => 'Image does not exist',

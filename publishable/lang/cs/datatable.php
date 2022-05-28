@@ -19,7 +19,7 @@ return [
         'sNext'     => 'Další',
         'sPrevious' => 'Předchozí',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': třídění sloupce vzestupně',
         'sSortDescending' => ': třídění sloupce sestupně',
     ],

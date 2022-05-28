@@ -19,7 +19,7 @@ return [
         'sNext'     => 'التالي',
         'sPrevious' => 'السابق',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': فعل لترتيب العمود تصاعديا',
         'sSortDescending' => ': فعل لترتيب العمود تنازليا',
     ],

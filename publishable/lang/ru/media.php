@@ -19,6 +19,7 @@ return [
     'files_more'             => 'И еще :count',
     'file_does_not_exist'    => 'Файла не существует',
     'file_removed'           => 'Файл удалён',
+    'files_removed'          => 'Файлы удалены',
     'files_selected'         => 'файлы/папка выбраны',
     'folder_exists_already'  => 'Папка с таким именем уже существует: удалите ее, если хотите создать новую с таким же именем.',
     'image_does_not_exist'   => 'Изображения не существует',

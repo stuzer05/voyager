@@ -19,7 +19,7 @@ return [
         'sNext'     => 'داهاتوو',
         'sPrevious' => 'پێشتر',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': چالاکی بکە بۆ ڕكخستنی ستوون لە ا بۆ ز',
         'sSortDescending' => ': چالاکی بکە بۆ ڕێکخستنی ستوون لە ز بۆ ا',
     ],

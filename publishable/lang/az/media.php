@@ -19,6 +19,7 @@ return [
     'files_more'             => 'daha çox :count',
     'file_does_not_exist'    => 'Fayl mövcud deyil',
     'file_removed'           => 'Fayl silinib',
+    'files_removed'          => 'Fayl silinib',
     'files_selected'         => 'Fayl/Qovluq seçildi',
     'folder_exists_already'  => 'Eyni adlı qovluq artıq mövcuddur: eyni adlı yeni qovluq yaratmaq istəyirsinizsə, onu silin.',
     'image_does_not_exist'   => 'Şəkil mövcud deyil',

@@ -16,6 +16,7 @@ return [
     'error_uploading'        => 'أخفق الرفع: حدث خطأ غير معلوم!',
     'file_does_not_exist'    => 'الملف غير موجود',
     'file_removed'           => 'الملف تم حذفه',
+    'files_removed'          => 'الملف تم حذفه',
     'folder_exists_already'  => 'عذرًا أن المجلد موجود بالفعل ، يرجى حذف هذا المجلد إذا كنت ترغب في إعادة إنشائه',
     'image_does_not_exist'   => 'الصورة غير موجودة',
     'image_removed'          => 'تمت إزالة الصورة',

@@ -27,5 +27,5 @@ return [
     'updated_order'        => 'Pomyślnie zaktualizowano kolejność elementów menu.',
     'url'                  => 'URL dla elementu menu',
     'usage_hint'           => 'Menu można umieścić w dowolnym miejscu na stronie, używając|Te menu można '.
-                    'umieścić w dowolnym miejscu na stronie, używając ',
+        'umieścić w dowolnym miejscu na stronie, używając ',
 ];

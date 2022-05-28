@@ -19,7 +19,7 @@ return [
         'sNext'     => '下页',
         'sPrevious' => '上页',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': 以升序排列此列',
         'sSortDescending' => ': 以降序排列此列',
     ],

@@ -19,6 +19,7 @@ return [
     'files_more'             => 'E :count mais',
     'file_does_not_exist'    => 'Arquivo não existe',
     'file_removed'           => 'Arquivo removido',
+    'files_removed'          => 'Arquivo removido',
     'files_selected'         => 'Arquivos/pasta removido',
     'folder_exists_already'  => 'Oops, essa pasta já existe, por favor remova essa pasta se desejar criar uma nova',
     'image_does_not_exist'   => 'A imagem não existe',

@@ -50,8 +50,8 @@ class VoyagerBaseController extends Controller
 
         $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
 
-		$dataTypeModel = app($dataType->model_name);
-		$dataTypeTable = $dataTypeModel->table ?? $dataType->name;
+        $dataTypeModel = app($dataType->model_name);
+        $dataTypeTable = $dataTypeModel->table ?? $dataType->name;
 
         $searchNames = [];
         if ($dataType->server_side) {
@@ -366,20 +366,20 @@ class VoyagerBaseController extends Controller
             });
         $original_data = clone($data);
 
-		if (auth()->user()->can('browse', app($dataType->model_name)) && !config('voyager.settings.bread_save_redirect_back', false)) {
-			$redirect = redirect()->route("voyager.{$dataType->slug}.index");
-		} else {
-			$redirect = redirect()->back();
-		}
+        if (auth()->user()->can('browse', app($dataType->model_name)) && !config('voyager.settings.bread_save_redirect_back', false)) {
+            $redirect = redirect()->route("voyager.{$dataType->slug}.index");
+        } else {
+            $redirect = redirect()->back();
+        }
 
         try {
-			event(new BreadDataBeforeUpdated($dataType, $data, $request));
-		} catch (Exception $e) {
-			return $redirect->with([
-				'message'    => $e->getMessage(),
-				'alert-type' => 'error',
-			]);
-		}
+            event(new BreadDataBeforeUpdated($dataType, $data, $request));
+        } catch (Exception $e) {
+            return $redirect->with([
+                'message'    => $e->getMessage(),
+                'alert-type' => 'error',
+            ]);
+        }
 
         $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
 
@@ -417,8 +417,8 @@ class VoyagerBaseController extends Controller
         $this->authorize('add', app($dataType->model_name));
 
         $dataTypeContent = (strlen($dataType->model_name) != 0)
-                            ? new $dataType->model_name()
-                            : false;
+            ? new $dataType->model_name()
+            : false;
 
         foreach ($dataType->addRows as $key => $row) {
             $dataType->addRows[$key]['col_width'] = $row->details->width ?? 100;
@@ -461,34 +461,34 @@ class VoyagerBaseController extends Controller
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->addRows)->validate();
 
-		try {
-			event(new BreadDataBeforeAdded($dataType, $request));
-		} catch (Exception $e) {
-			if (auth()->user()->can('browse', new $dataType->model_name()) && !config('voyager.settings.bread_save_redirect_back', false)) {
-				$redirect = redirect()->route("voyager.{$dataType->slug}.index");
-			} else {
-				$redirect = redirect()->back();
-			}
+        try {
+            event(new BreadDataBeforeAdded($dataType, $request));
+        } catch (Exception $e) {
+            if (auth()->user()->can('browse', new $dataType->model_name()) && !config('voyager.settings.bread_save_redirect_back', false)) {
+                $redirect = redirect()->route("voyager.{$dataType->slug}.index");
+            } else {
+                $redirect = redirect()->back();
+            }
 
-			return $redirect->with([
-				'message'    => $e->getMessage(),
-				'alert-type' => 'error',
-			]);
-		}
+            return $redirect->with([
+                'message'    => $e->getMessage(),
+                'alert-type' => 'error',
+            ]);
+        }
 
         $data = $this->insertUpdateData($request, $slug, $dataType->addRows, new $dataType->model_name());
 
 
-		event(new BreadDataAdded($dataType, $data));
+        event(new BreadDataAdded($dataType, $data));
 
         if (!$request->has('_tagging')) {
-			if (auth()->user()->can('browse', new $dataType->model_name()) && !config('voyager.settings.bread_save_redirect_back', false)) {
-				$redirect = redirect()->route("voyager.{$dataType->slug}.index");
-			} else {
-				$redirect = redirect()->route("voyager.{$dataType->slug}.edit", [
-					'id' => $data->getKey(),
-				]);
-			}
+            if (auth()->user()->can('browse', new $dataType->model_name()) && !config('voyager.settings.bread_save_redirect_back', false)) {
+                $redirect = redirect()->route("voyager.{$dataType->slug}.index");
+            } else {
+                $redirect = redirect()->route("voyager.{$dataType->slug}.edit", [
+                    'id' => $data->getKey(),
+                ]);
+            }
 
             return $redirect->with([
                 'message'    => __('voyager::generic.successfully_added_new')." {$dataType->getTranslatedAttribute('display_name_singular')}",
@@ -529,29 +529,29 @@ class VoyagerBaseController extends Controller
 
         $deletedModels = collect();
 
-		foreach ($ids as $id) {
-			$data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
+        foreach ($ids as $id) {
+            $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
 
-			// Check permission
-			$this->authorize('delete', $data);
+            // Check permission
+            $this->authorize('delete', $data);
 
-			try {
-				event(new BreadDataBeforeDeleted($dataType, $data));
-			} catch (Exception $e) {
-				$redirect = redirect()->route("voyager.{$dataType->slug}.index");
+            try {
+                event(new BreadDataBeforeDeleted($dataType, $data));
+            } catch (Exception $e) {
+                $redirect = redirect()->route("voyager.{$dataType->slug}.index");
 
-				return $redirect->with([
-					'message'    => __('voyager::generic.error_deleting')." {$e->getMessage()}",
-					'alert-type' => 'error',
-				]);
-			}
-		}
+                return $redirect->with([
+                    'message'    => __('voyager::generic.error_deleting')." {$e->getMessage()}",
+                    'alert-type' => 'error',
+                ]);
+            }
+        }
 
         foreach ($ids as $id) {
             $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
 
             $model = app($dataType->model_name);
-			$deletedModels[] = $data;
+            $deletedModels[] = $data;
 
             if (!($model && in_array(SoftDeletes::class, class_uses_recursive($model)))) {
                 $this->cleanup($dataType, $data);
@@ -744,6 +744,88 @@ class VoyagerBaseController extends Controller
         }
     }
 
+    public function remove_media_all(Request $request)
+    {
+        try {
+            // GET THE SLUG, ex. 'posts', 'pages', etc.
+            $slug = $request->get('slug');
+
+            // GET record id
+            $id = $request->get('id');
+
+            // GET field name
+            $field = $request->get('field');
+
+            $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+
+            // Load model and find record
+            $model = app($dataType->model_name);
+            $data = $model::findOrfail($id);
+
+            // Check permission
+            $this->authorize('edit', $data);
+
+            if (!empty($data->{$field})) {
+                // Check if valid json
+                if (is_null(@json_decode($data->{$field}))) {
+                    throw new Exception(__('voyager::json.invalid'), 500);
+                }
+
+                $filesToRemove = [];
+
+                // Decode field value
+                $fieldData = @json_decode($data->{$field}, true);
+
+                // Check if we're dealing with a nested array for the case of multiple files
+                if (is_array($fieldData)) {
+                    foreach ($fieldData as $index => $file) {
+                        $filesToRemove[] = $file['download_link'] ?? $file;
+                    }
+                }
+
+                $data->{$field} = null;
+
+                $row = $dataType->rows->where('field', $field)->first();
+
+                // Remove file from filesystem
+                foreach ($filesToRemove as $fileToRemove) {
+                    if (in_array($row->type, ['image', 'multiple_images'])) {
+                        $this->deleteBreadImages($data, [$row], $fileToRemove);
+                    } else {
+                        $this->deleteFileIfExists($fileToRemove);
+                    }
+                }
+
+                $data->save();
+            }
+
+            return response()->json([
+                'data' => [
+                    'status'  => 200,
+                    'message' => __('voyager::media.files_removed'),
+                ],
+            ]);
+        } catch (Exception $e) {
+            $code = 500;
+            $message = __('voyager::generic.internal_error');
+
+            if ($e->getCode()) {
+                $code = $e->getCode();
+            }
+
+            if ($e->getMessage()) {
+                $message = $e->getMessage();
+            }
+
+            return response()->json([
+                'data' => [
+                    'status'  => $code,
+                    'message' => $message,
+                ],
+            ], $code);
+        }
+    }
+
     /**
      * Remove translations, images and files related to a BREAD item.
      *
@@ -853,11 +935,11 @@ class VoyagerBaseController extends Controller
 
         if (empty($dataType->order_column) || empty($dataType->order_display_column)) {
             return redirect()
-            ->route("voyager.{$dataType->slug}.index")
-            ->with([
-                'message'    => __('voyager::bread.ordering_not_set'),
-                'alert-type' => 'error',
-            ]);
+                ->route("voyager.{$dataType->slug}.index")
+                ->with([
+                    'message'    => __('voyager::bread.ordering_not_set'),
+                    'alert-type' => 'error',
+                ]);
         }
 
         $model = app($dataType->model_name);
@@ -1046,8 +1128,8 @@ class VoyagerBaseController extends Controller
 
             return !$this->relationIsUsingAccessorAsLabel($item->details);
         })
-        ->pluck('field')
-        ->toArray();
+            ->pluck('field')
+            ->toArray();
     }
 
     protected function relationIsUsingAccessorAsLabel($details)

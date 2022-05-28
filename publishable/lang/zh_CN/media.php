@@ -19,6 +19,7 @@ return [
     'files_more'             => '还有 :count 更多',
     'file_does_not_exist'    => '文件不存在',
     'file_removed'           => '文件已删除',
+    'files_removed'          => '文件已删除',
     'files_selected'         => '选定的文件/文件夹',
     'folder_exists_already'  => '对不起，文件夹已经存在，如果您想重新创建，请删除该文件夹',
     'image_does_not_exist'   => '图片不存在',

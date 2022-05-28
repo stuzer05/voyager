@@ -19,7 +19,7 @@ return [
         'sNext'     => 'Următoarea',
         'sPrevious' => 'Precedenta',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': activați pentru a sorta coloana crescător',
         'sSortDescending' => ': activați pentru a sorta coloana descrescător',
     ],

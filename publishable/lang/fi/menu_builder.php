@@ -27,5 +27,5 @@ return [
     'updated_order'        => 'Valikon järjestystä muutettiin onnistuneesti.',
     'url'                  => 'Valikkorivin verkko-osoite',
     'usage_hint'           => 'Voit esittää valikon missä kohdassa tahansa sivustollasi kutsumalla|Voit esittää '.
-                                'tämän valikon missä kohdassa tahansa sivustollasi kutsumalla',
+        'tämän valikon missä kohdassa tahansa sivustollasi kutsumalla',
 ];

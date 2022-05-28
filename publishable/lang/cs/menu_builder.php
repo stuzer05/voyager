@@ -27,5 +27,5 @@ return [
     'updated_order'        => 'Pořadí bylo úspěšně upraveno.',
     'url'                  => 'URL pro položku',
     'usage_hint'           => 'Menu můžete zobrazit kdekoliv zavoláním|Toto menu můžete '.
-                              'zobrazit kdekoliv na stránce zavoláním',
+        'zobrazit kdekoliv na stránce zavoláním',
 ];

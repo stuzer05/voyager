@@ -20,7 +20,7 @@ return [
         'sPrevious' => 'Anterior',
 
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': ativar para ordenar de forma crescente',
         'sSortDescending' => ': ativar para ordenar de forma decrescente',
     ],

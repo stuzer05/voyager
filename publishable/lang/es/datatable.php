@@ -19,7 +19,7 @@ return [
         'sNext'     => 'Siguiente',
         'sPrevious' => 'Anterior',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': Activar para ordenar la columna ascendente',
         'sSortDescending' => ': Activar para ordenar la columna descendente',
     ],

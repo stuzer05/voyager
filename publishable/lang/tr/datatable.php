@@ -19,7 +19,7 @@ return [
         'sNext'     => 'İleri',
         'sPrevious' => 'Geri',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': activate artana göre sırala',
         'sSortDescending' => ': activate azalana göre sırala',
     ],

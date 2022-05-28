@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'data_rows' => [
+    'data_rows'  => [
         'author'           => 'Författare',
         'avatar'           => 'Avatar',
         'body'             => 'Brödtext',
@@ -30,49 +30,49 @@ return [
     ],
     'data_types' => [
         'category' => [
-            'singular'  => 'Kategori',
-            'plural'    => 'Kategorier',
+            'singular' => 'Kategori',
+            'plural'   => 'Kategorier',
         ],
-        'menu' => [
-            'singular'  => 'Meny',
-            'plural'    => 'Menyer',
+        'menu'     => [
+            'singular' => 'Meny',
+            'plural'   => 'Menyer',
         ],
-        'page' => [
-            'singular'  => 'Sida',
-            'plural'    => 'Sidor',
+        'page'     => [
+            'singular' => 'Sida',
+            'plural'   => 'Sidor',
         ],
-        'post' => [
-            'singular'  => 'Inlägg',
-            'plural'    => 'Inlägg',
+        'post'     => [
+            'singular' => 'Inlägg',
+            'plural'   => 'Inlägg',
         ],
-        'role' => [
-            'singular'  => 'Roll',
-            'plural'    => 'Roller',
+        'role'     => [
+            'singular' => 'Roll',
+            'plural'   => 'Roller',
         ],
-        'user' => [
-            'singular'  => 'Användare',
-            'plural'    => 'Användare',
+        'user'     => [
+            'singular' => 'Användare',
+            'plural'   => 'Användare',
         ],
     ],
     'menu_items' => [
-        'categories'    => 'Kategorier',
-        'compass'       => 'Kompass',
-        'dashboard'     => 'Skrivbord',
-        'database'      => 'Databas',
-        'media'         => 'Media',
-        'menu_builder'  => 'Menubyggare',
-        'pages'         => 'Sidor',
-        'posts'         => 'Inlägg',
-        'roles'         => 'Roller',
-        'settings'      => 'Inställningar',
-        'tools'         => 'Verktyg',
-        'users'         => 'Användare',
+        'categories'   => 'Kategorier',
+        'compass'      => 'Kompass',
+        'dashboard'    => 'Skrivbord',
+        'database'     => 'Databas',
+        'media'        => 'Media',
+        'menu_builder' => 'Menubyggare',
+        'pages'        => 'Sidor',
+        'posts'        => 'Inlägg',
+        'roles'        => 'Roller',
+        'settings'     => 'Inställningar',
+        'tools'        => 'Verktyg',
+        'users'        => 'Användare',
     ],
-    'roles' => [
-        'admin'         => 'Administratör',
-        'user'          => 'Normal Användare',
+    'roles'      => [
+        'admin' => 'Administratör',
+        'user'  => 'Normal Användare',
     ],
-    'settings' => [
+    'settings'   => [
         'admin' => [
             'background_image'           => 'Admin Backgroundsbild',
             'description'                => 'Admin Beskrivning',
@@ -82,7 +82,7 @@ return [
             'loader'                     => 'Admin Laddare',
             'title'                      => 'Admin Titel',
         ],
-        'site' => [
+        'site'  => [
             'description'                  => 'Beskrivning av sajten',
             'google_analytics_tracking_id' => 'Google Analytics Språnings-ID',
             'logo'                         => 'Logotyp för sajt',

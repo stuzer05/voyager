@@ -19,7 +19,7 @@ return [
         'sNext'     => 'Tiếp',
         'sPrevious' => 'Trước',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': sắp xếp cột theo thứ tự tăng dần',
         'sSortDescending' => ': sắp xếp cột theo thứ tự giảm dần',
     ],

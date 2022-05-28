@@ -19,7 +19,7 @@ return [
         'sNext'     => '次',
         'sPrevious' => '前',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': 昇順の並べ替えを有効にする',
         'sSortDescending' => ': 降順の並べ替えを有効にする',
     ],

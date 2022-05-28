@@ -20,6 +20,7 @@ return [
     'files_more'             => 'Und :count Weitere',
     'file_does_not_exist'    => 'Datei existiert nicht',
     'file_removed'           => 'Datei entfernt',
+    'files_removed'          => 'Datei entfernt',
     'files_selected'         => 'Dateien/Ordner ausgewählt',
     'folder_exists_already'  => 'Dieser Ordner existiert bereits. Bitte löschen Sie diesen Ordner falls Sie ihn neu anlegen möchten',
     'image_does_not_exist'   => 'Bild existiert nicht',

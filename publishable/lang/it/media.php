@@ -19,6 +19,7 @@ return [
     'files_more'             => 'And :count more',
     'file_does_not_exist'    => 'File does not exist',
     'file_removed'           => 'File removed',
+    'files_removed'          => 'Files removed',
     'files_selected'         => 'files/folder selected',
     'folder_exists_already'  => 'Spiacenti questa cartella è già esistente, si prega di eliminarla se si desira ricrearla',
     'image_does_not_exist'   => 'L\'immagine non esiste',

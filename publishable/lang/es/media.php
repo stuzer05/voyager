@@ -23,6 +23,7 @@ return [
     'error_uploading'        => 'Carga fallida: Ocurrió un error desconocido',
     'file_does_not_exist'    => 'El archivo no existe',
     'file_removed'           => 'Archivo eliminado',
+    'files_removed'          => 'Archivo eliminado',
     'files'                  => '1 archivo|:count archivos',
     'files_more'             => 'Y :count más',
     'files_selected'         => 'Archivos/Carpeta seleccionados',

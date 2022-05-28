@@ -19,7 +19,7 @@ return [
         'sNext'     => '下頁',
         'sPrevious' => '上頁',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': 以升冪排列此列',
         'sSortDescending' => ': 以降冪排列此列',
     ],

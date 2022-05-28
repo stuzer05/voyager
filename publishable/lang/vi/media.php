@@ -19,6 +19,7 @@ return [
     'files_more'             => 'Và :count nữa',
     'file_does_not_exist'    => 'Tập tin không tồn tại',
     'file_removed'           => 'Đã xóa tập tin',
+    'files_removed'          => 'Đã xóa tập tin',
     'files_selected'         => 'Đã chọn tập tin/thư mục',
     'folder_exists_already'  => 'Rất tiếc! Thư mục này hiện đã tồn tại, vui lòng xóa thư mục nếu bạn muốn tạo lại nó.',
     'image_does_not_exist'   => 'Hình ảnh không tồn tại',

@@ -19,7 +19,7 @@ return [
         'sNext'     => 'Növbəti',
         'sPrevious' => 'Əvvəlki',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': sütunu artan qaydada çeşidləmək üçün aktivləşdirin',
         'sSortDescending' => ': sütunu azalan qaydada çeşidləmək üçün aktivləşdirin',
     ],

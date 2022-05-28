@@ -19,7 +19,7 @@ return [
         'sNext'     => 'Seuraava',
         'sPrevious' => 'Edellinen',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': lajittele nousevassa järjestyksessä',
         'sSortDescending' => ': lajittele laskevassa järjestyksessä',
     ],

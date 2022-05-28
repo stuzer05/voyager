@@ -19,7 +19,7 @@ return [
         'sNext'     => 'بعدی',
         'sPrevious' => 'قبلی',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': برای چینش صعودی فعال نمایید',
         'sSortDescending' => ': برای چینش نزولی فعال نمایید',
     ],

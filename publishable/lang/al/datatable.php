@@ -19,7 +19,7 @@ return [
         'sNext'     => 'Tjetra',
         'sPrevious' => 'I mëparshmi',
     ],
-    'oAria' => [
+    'oAria'           => [
         'sSortAscending'  => ': aktivizoni për të renditur kolonën në ngjitje',
         'sSortDescending' => ': aktivizo për të renditur kolonën zbritëse',
     ],
