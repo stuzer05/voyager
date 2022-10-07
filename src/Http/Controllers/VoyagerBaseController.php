@@ -837,7 +837,11 @@ class VoyagerBaseController extends Controller
 
 		$model = app($dataType->model_name);
 
-		$data = $model->withTrashed()->findOrFail($request->id);
+		if (in_array(SoftDeletes::class, class_uses_recursive($model))) {
+			$data = $model->withTrashed()->findOrFail($request->id);
+		} else {
+			$data = $model->findOrFail($request->id);
+		}
 
 		$data->{$request->field} = @json_encode($request->file_names);
 
