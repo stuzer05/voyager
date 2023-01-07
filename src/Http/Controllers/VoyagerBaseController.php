@@ -55,7 +55,7 @@ class VoyagerBaseController extends Controller
 
         $searchNames = [];
         if ($dataType->server_side) {
-            $searchNames = $dataType->browseRows->mapWithKeys(function ($row) {
+            $searchNames = $dataType->browseRows->filter(fn($row) => $row->type != 'relationship')->mapWithKeys(function ($row) {
                 return [$row['field'] => $row->getTranslatedAttribute('display_name')];
             });
         }
