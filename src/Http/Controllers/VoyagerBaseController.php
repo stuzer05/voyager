@@ -92,17 +92,18 @@ class VoyagerBaseController extends Controller
                 $search_filter = ($search->filter == 'equals') ? '=' : 'LIKE';
                 $search_value = ($search->filter == 'equals') ? $search->value : '%'.$search->value.'%';
 
-                $searchField = $dataTypeTable.'.'.$search->key;
-                if ($row = $this->findSearchableRelationshipRow($dataType->rows->where('type', 'relationship'), $search->key)) {
-                    $query->whereIn(
-                        $searchField,
-                        $row->details->model::where($row->details->label, $search_filter, $search_value)->pluck('id')->toArray()
-                    );
-                } else {
-                    if ($dataType->browseRows->pluck('field')->contains($search->key)) {
-                        $query->where($searchField, $search_filter, $search_value);
-                    }
-                }
+				if ($row = $this->findSearchableRelationshipRow($dataType->rows->where('type', 'relationship'), $search->key)) {
+					$searchField = $dataTypeTable.'.'.$row->details->column;
+					$query->whereIn(
+						$searchField,
+						$row->details->model::where($row->details->label, $search_filter, $search_value)->pluck($row->details->key)->toArray()
+					);
+				} else {
+					$searchField = $dataTypeTable.'.'.$search->key;
+					if ($dataType->browseRows->pluck('field')->contains($search->key)) {
+						$query->where($searchField, $search_filter, $search_value);
+					}
+				}
             }
 
             $row = $dataType->rows->where('field', $orderBy)->firstWhere('type', 'relationship');
