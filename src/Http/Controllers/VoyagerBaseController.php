@@ -55,9 +55,9 @@ class VoyagerBaseController extends Controller
 
         $searchNames = [];
         if ($dataType->server_side) {
-            $searchNames = $dataType->browseRows->filter(fn($row) => $row->type != 'relationship')->mapWithKeys(function ($row) {
-                return [$row['field'] => $row->getTranslatedAttribute('display_name')];
-            });
+			$searchNames = $dataType->browseRows->mapWithKeys(function ($row) {
+				return [$row['field'] => $row->getTranslatedAttribute('display_name')];
+			});
         }
 
         $orderBy = $request->get('order_by', $dataType->order_column);
@@ -99,9 +99,22 @@ class VoyagerBaseController extends Controller
 						$row->details->model::where($row->details->label, $search_filter, $search_value)->pluck($row->details->key)->toArray()
 					);
 				} else {
-					$searchField = $dataTypeTable.'.'.$search->key;
-					if ($dataType->browseRows->pluck('field')->contains($search->key)) {
-						$query->where($searchField, $search_filter, $search_value);
+					$row = $dataType->rows->where('field', $search->key)->first();
+
+					if ($row->type == 'relationship') {
+						if ($row->details->pivot == 0) {
+							$query->join($row->details->table, function($q) use ($row, $dataTypeTable, $search_filter, $search_value) {
+								$q->on($row->details->table . '.' . $row->details->key, '=', $dataTypeTable . '.' . $row->details->column);
+							});
+							$query->where($row->details->table . '.' . $row->details->label, $search_filter, $search_value);
+						} else {
+							dd('unsupported');
+						}
+					} else {
+						$searchField = $dataTypeTable.'.'.$search->key;
+						if ($dataType->browseRows->pluck('field')->contains($search->key)) {
+							$query->where($searchField, $search_filter, $search_value);
+						}
 					}
 				}
             }
