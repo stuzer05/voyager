@@ -101,19 +101,21 @@ class VoyagerBaseController extends Controller
 				} else {
 					$row = $dataType->rows->where('field', $search->key)->first();
 
-					if ($row->type == 'relationship') {
-						if ($row->details->pivot == 0) {
-							$query->join($row->details->table, function($q) use ($row, $dataTypeTable, $search_filter, $search_value) {
-								$q->on($row->details->table . '.' . $row->details->key, '=', $dataTypeTable . '.' . $row->details->column);
-							});
-							$query->where($row->details->table . '.' . $row->details->label, $search_filter, $search_value);
+					if ($row) {
+						if ($row->type == 'relationship') {
+							if ($row->details->pivot == 0) {
+								$query->join($row->details->table, function($q) use ($row, $dataTypeTable, $search_filter, $search_value) {
+									$q->on($row->details->table . '.' . $row->details->key, '=', $dataTypeTable . '.' . $row->details->column);
+								});
+								$query->where($row->details->table . '.' . $row->details->label, $search_filter, $search_value);
+							} else {
+								dd('unsupported');
+							}
 						} else {
-							dd('unsupported');
-						}
-					} else {
-						$searchField = $dataTypeTable.'.'.$search->key;
-						if ($dataType->browseRows->pluck('field')->contains($search->key)) {
-							$query->where($searchField, $search_filter, $search_value);
+							$searchField = $dataTypeTable.'.'.$search->key;
+							if ($dataType->browseRows->pluck('field')->contains($search->key)) {
+								$query->where($searchField, $search_filter, $search_value);
+							}
 						}
 					}
 				}
